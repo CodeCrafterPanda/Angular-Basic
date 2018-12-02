@@ -1,0 +1,100 @@
+<br>
+<div class="col s3">
+    <a href="#!" class="dropdown-trigger left" data-target="dropdown1"><span class="new badge orange">{{canceledOrders.length}}</span>Canceled Orders</a>
+    <a href="#!" class="dropdown-trigger right" data-target="dropdown2"><span class="new badge blue">{{orders.length}}</span>New Orders</a>
+    <!-- Dropdown Structure -->
+    <ul id="dropdown1" class="dropdown-content">
+        <li *ngFor="let order of canceledOrders; let i = index" class="orange">
+            <a href="#!" class="white" (click)="cancelShowMethod($event, order)">{{i+1}}. {{order.content}}</a>
+        </li>
+    </ul>
+
+    <!-- Dropdown Structure -->
+    <ul id="dropdown2" class="dropdown-content">
+        <li class="blue" *ngFor="let order of orders; let i = index">
+            <a href="#!" class="white" (click)="newShowMethod($event, order)">{{i+1}}. {{order.content}}</a>
+        </li>
+    </ul>
+
+</div>
+<br><br>
+<hr>
+<div class="row">
+    <div class="col s4">
+        <div *ngFor="let order of canceledOrders; let i = index">
+            <div class="row" *ngIf="cancelState && cancelShow.id == order.id">
+                <div class="col s12">
+                    <div class="card darken-1">
+                        <div class="card-content">
+                            <span class="card-title">Id- {{order.id}}</span>
+                            <p>This Order has been canceled.</p>
+                            <p> Order Details As Follows :</p>
+                            <h6><strong>Content :</strong> {{order.content}}</h6>
+                            <h6><strong>Quantity :</strong> {{order.quantity}}</h6>
+                        </div>
+                        <div class="card-action">
+                            <a href="#" (click)="clearState($event,order)">Close</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="servedOrders?.length > 0 ; else noOrders" class="col s4">
+        <ul *ngFor="let order of servedOrders ; let i = index" class="collection">
+            <li class="collection-item" (dblclick)="showServed($event,order)"><strong>{{i+1}}. Id: </strong> {{order.id}} <br> <strong>{{order.content}}</strong>
+                <div *ngIf="serveState && serveShow.id == order.id">
+                    <p>This Order has been served:
+                        <label>
+                            <input type="checkbox" [(ngModel)]="order.isServed" name="isServed"/>
+                            <span>Served</span>
+                        </label>
+                    </p>
+                    <p>Order Content: {{order.content}}</p>
+                    <p>Order Quantity: {{order.quantity}}</p>
+                </div>
+            </li>
+        </ul>
+        <ng-template #noOrders>
+            <hr>
+            <h5>There is no items to list</h5>
+        </ng-template>
+    </div>
+
+    <div class="col s4">
+        <div *ngFor="let order of orders; let i = index">
+            <div class="row" *ngIf="newState && newShow.id == order.id">
+                <div class="col s12">
+                    <div class="card darken-1">
+                        <div class="card-content">
+                            <span class="card-title">Id- {{order.id}}</span>
+                            <p>This Order has been placed.</p>
+                            <p> Order Details As Follows :</p>
+                            <h6><strong>Content :</strong> {{order.content}}</h6>
+                            <h6><strong>Quantity :</strong> {{order.quantity}}</h6>
+                            <hr>
+                            <form (ngSubmit)="onSubmit(order)" class="col s12">
+                                <div class="input-field col s4">
+                                    <label *ngIf="!order.isCanceled">
+                                        <input type="checkbox" [(ngModel)]="order.isServed" name="isServed" />
+                                        <span>Serve</span>
+                                      </label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <label *ngIf="!order.isServed">
+                                        <input type="checkbox" [(ngModel)]="order.isCanceled" name="isCanceled"  />
+                                        <span>Cancel</span>
+                                    </label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input type="submit" value="Submit" class="btn">
+                                </div>
+                            </form>
+                            <br><br><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
