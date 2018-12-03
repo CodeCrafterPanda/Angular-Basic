@@ -12,7 +12,7 @@ Developed Using Angular 6 and Materialize CSS.
 <br>
 
 # Tea-Store App:  <a href="http://upbeat-bartik-668e08.netlify.com" target="_blank">Demo</a>
-It is Tea Store app,Where you can add order after adding order you can manage order as Served or Canceled, also can see order status. Data persisted in Google Firestore.<br>
+It is Tea Store app,Where you can add order after adding order you can manage order as Served or Canceled, also can see order status by double-click on order from list. Data persisted in Google Firestore.<br>
 Developed Using Angular 6 and Materialize CSS.
 
 
